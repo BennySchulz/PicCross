@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PicCross</title>
+    <style type = "text/css">
+        body {
+    margin: 0;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+h1.title {
+    font-size: 3em;
+    margin-top: 20px;
+    color: #4CAF50;
+}
+
+.horizontal-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.horizontal-list li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+canvas {
+    border: 2px solid #333;
+    background-color: white;
+    margin: 20px auto;
+    display: block;
+}
+
+input {
+    height: 300px;
+    width: 300px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.custom-textarea {
+    width: 300px;
+    height: 300px;
+    padding: 10px; 
+    box-sizing: border-box; 
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#l3x3, #l5x5, #l10x10, #l15x15, #Manual {
+    display: none;
+}
+
+h3 {
+    color: #333;
+    margin: 20px 0;
+}
+
+p {
+    color: #666;
+    font-size: 1em;
+}
+
+textarea {
+    width: 90%;
+    max-width: 600px;
+    height: 150px;
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    display: block;
+}
+
+button#Enter {
+    display: block;
+    margin: 10px auto;
+}
+
+@media (max-width: 600px) {
+    .horizontal-list li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    button {
+        width: 90%;
+        max-width: 300px;
+        margin: 5px auto;
+    }
+
+    .custom-textarea {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <h1 class="title">PicCross</h1>
+    <ul class="horizontal-list">
+        <li>
+            <button type="button" onclick="set3x3Visible()">3x3</button>
+        </li>
+        <li>
+            <button type="button" onclick="set5x5Visible()">5x5</button>
+        </li>
+        <li>
+            <button type="button" onclick="set10x10Visible()">10x10</button>
+        </li>
+        <li>
+            <button type="button" onclick="set15x15Visible()">15x15</button>
+        </li>
+        <li>
+            <button type="button" onclick="setManualVisible()">Manual</button>
+        </li>
+    </ul>
+    <div id="l3x3">
+        <h3>3x3 Puzzles</h3>
+        <ul class="horizontal-list">
+            <li>
+                <button type="button" onclick="set3x3Easy()">3x3 Easy</button>
+            </li>
+            <li>
+                <button type="button" onclick="set3x3Medium()()">3x3 Medium</button>
+            </li>
+            <li>
+                <button type="button" onclick="set3x3Hard()">3x3 Hard</button>
+            </li>
+        </ul>
+    </div>
+    <div id="l5x5">
+        <h3>5x5 Puzzles</h3>
+        <ul class="horizontal-list">
+            <li>
+                <button type="button" onclick="set5x5Easy()">5x5 Easy</button>
+            </li>
+            <li>
+                <button type="button" onclick="set5x5Medium()()">5x5 Medium</button>
+            </li>
+            <li>
+                <button type="button" onclick="set5x5Hard()">5x5 Hard</button>
+            </li>
+        </ul>
+    </div>
+    <div id="l10x10">
+        <h3>10x10 Puzzles</h3>
+        <ul class="horizontal-list">
+            <li>
+                <button type="button" onclick="set10x10Easy()">10x10 Easy</button>
+            </li>
+            <li>
+                <button type="button" onclick="set10x10Medium()()">10x10 Medium</button>
+            </li>
+            <li>
+                <button type="button" onclick="set10x10Hard()">10x10 Hard</button>
+            </li>
+        </ul>
+    </div>
+    <div id="l15x15">
+        <h3>15x15 Puzzles</h3>
+        <ul class="horizontal-list">
+            <li>
+                <button type="button" onclick="set15x15Easy()">15x15 Easy</button>
+            </li>
+            <li>
+                <button type="button" onclick="set15x15Medium()()">15x15 Medium</button>
+            </li>
+            <li>
+                <button type="button" onclick="set15x15Hard()">15x15 Hard</button>
+            </li>
+        </ul>
+    </div>
+    <div id= Manual>
+        <h3>Manual Mode</h1>
+        <p>Insert the solution into the text box below and click enter.</p>
+        <p>The solution should be a comma separated list of lists of 0s and 1s, where 0 is empty and 1 is filled.</p>
+        <p>Make sure all the lists are the same length.</p>
+        <p>Or type in #x# to get an empty grid of the specified size.</p>
+        <p>Press the export button to display the current board in the text box.</p>
+        <textarea class="custom-textarea" id="solution" placeholder="Solution"></textarea>
+        <ul class="horizontal-list">
+            <li>
+                <button type="button" onclick="importSolution()">Import</button>
+            </li>
+            <li>
+                <button type="button" onclick="exportBoard()">Export</button>
+            </li>
+        </ul>
+    </div>
+
+    <canvas id="canvas" width="600" height="600">
+    </canvas>
+    <script src="PicCross.js">
+    </script>
+</body>
+</html>
