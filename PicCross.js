@@ -40,7 +40,7 @@ class Cell {
     }
 
     draw() {
-        ctx.fillStyle = "light-green";
+        ctx.fillStyle = "gray";
         ctx.strokeStyle = "black";
         ctx.lineWidth = 2;    
         var xOffset = this.x * xWidth + xGridOffset;
